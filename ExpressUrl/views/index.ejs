@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Express URL</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #a5f3fc, #c7d2fe, #e0e7ff);
+      background-size: 400% 400%;
+      animation: gradientShift 10s ease infinite;
+      font-family: "Inter", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .card {
+      width: 100%;
+      max-width: 650px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      margin: 40px 20px;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: 800;
+      margin-bottom: 32px;
+      color: #1f2937;
+      letter-spacing: -0.5px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      font-size: 15px;
+      transition: 0.2s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      font-weight: 600;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      color: white;
+      letter-spacing: 0.5px;
+      transition: 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background: linear-gradient(90deg, #4f46e5, #7c3aed);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
+    }
+
+    h2 {
+      font-weight: 600;
+      color: #111827;
+      text-align: center;
+      margin-top: 35px;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 8px;
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+
+    .status span {
+      font-size: 15px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 25px;
+    }
+
+    li {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    li a {
+      font-weight: 600;
+      color: #4338ca;
+      text-decoration: none;
+    }
+
+    li a:hover {
+      text-decoration: underline;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .actions a, .actions button {
+      border: none;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .edit-btn {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .edit-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .delete-btn {
+      background: #ef4444;
+      color: white;
+    }
+
+    .delete-btn:hover {
+      background: #b91c1c;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="card" >
+        <%- include('navbar') %>
+
+    <form action="/" method="post" style="margin-top: 30px;">
+      <label for="url">Enter URL</label>
+      <input type="text" name="url" id="url" placeholder="Paste your long URL here" autocomplete="off" required>
+
+      <label for="shortcode">Enter Shortcode</label>
+      <input type="text" name="shortcode" id="shortcode" placeholder="Custom shortcode (optional)" autocomplete="off">
+
+      <button type="submit" style="margin-top: 20px;">Shorten</button>
+    </form>
+
+    <div class="status mt-3">
+      <% if (user) { %>
+        <span class="text-success">✅ You are logged in</span>
+      <% } else { %>
+        <span class="text-danger">🚫 You are logged out</span>
+      <% } %>
+    </div>
+
+    <h2>Shortened URLs</h2>
+
+    <ul>
+      <% if (links && links.length) { %>
+        <% links.map(({ shortcode, url, id }) => { %>
+          <li>
+            <div>
+              <a href="/<%= shortcode %>" target="_blank"><%= host %>/<%= shortcode %></a>
+              <div class="text-muted small"><%= url %></div>
+            </div>
+            <div class="actions">
+              <a href="/edit/<%= id %>" class="edit-btn">Edit</a>
+              <form action="/delete/<%= id %>" method="post" style="display:inline;">
+                <button type="submit" class="delete-btn">Delete</button>
+              </form>
+            </div>
+          </li>
+        <% }) %>
+      <% } else { %>
+        <p class="text-muted text-center mt-3">No links yet. Create your first one above 👆</p>
+      <% } %>
+    </ul>
+  </div>
+</body>
+</html>

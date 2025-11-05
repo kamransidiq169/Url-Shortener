@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Profile | MyApp</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-iconic-font@2.2.0/dist/css/material-design-iconic-font.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ---------- GLOBAL ---------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #eef2ff, #e0e7ff, #f5f3ff);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111827;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 450px;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      padding: 40px 36px;
+      transition: all 0.3s ease;
+    }
+
+    .container:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
+    }
+
+    /* ---------- HEADER ---------- */
+    .form-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 24px;
+      letter-spacing: -0.5px;
+    }
+
+    .user-status {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: 10px;
+      padding: 8px 14px;
+    }
+
+    .status-badge.success {
+      background: rgba(16, 185, 129, 0.1);
+      color: #059669;
+    }
+
+    .status-badge.warning {
+      background: rgba(251, 191, 36, 0.1);
+      color: #b45309;
+    }
+
+    /* ---------- FORM ---------- */
+    .url-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .form-group {
+      position: relative;
+    }
+
+    .form-group label {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: #6b7280;
+      font-size: 1.1rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 12px 12px 40px;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.25s ease;
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #818cf8;
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+    }
+
+    /* ---------- BUTTON ---------- */
+    .form-submit {
+      width: 100%;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.3px;
+    }
+
+    .form-submit:hover {
+      background: linear-gradient(90deg, #4f46e5, #7c3aed);
+      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.25);
+    }
+
+    /* ---------- FLASH MESSAGES ---------- */
+    .flash-error {
+      color: #dc2626;
+      background: rgba(254, 202, 202, 0.4);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .flash-success {
+      color: #065f46;
+      background: rgba(167, 243, 208, 0.4);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 480px) {
+      .container {
+        padding: 30px 24px;
+      }
+
+      .form-title {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="user-status">
+      <% if(user) { %>
+        <div class="status-badge success">
+          <i class="zmdi zmdi-check-circle"></i>
+          <span>You are logged in</span>
+        </div>
+      <% } else { %>
+        <div class="status-badge warning">
+          <i class="zmdi zmdi-alert-circle"></i>
+          <span>You are not logged in</span>
+        </div>
+      <% } %>
+    </div>
+
+    <h1 class="form-title">Edit Your Profile</h1>
+
+    <form action="/edit-profile" method="post" class="url-form">
+      <div class="form-group">
+        <label for="name"><i class="zmdi zmdi-account"></i></label>
+        <input type="text" name="name" id="name" value="<%= name %>" required />
+      </div>
+
+      <% if (errors && errors.length > 0) { %>
+        <% errors.forEach(error => { %>
+          <p class="flash-error"><%= error %></p>
+        <% }) %>
+      <% } %>
+
+      <% if (success && success.length > 0) { %>
+        <div class="flash-success">
+          <p><%= success[0] %></p>
+        </div>
+      <% } %>
+
+      <div class="form-group form-button">
+        <input type="submit" class="form-submit" value="Save Changes" />
+      </div>
+    </form>
+  </div>
+</body>
+</html>

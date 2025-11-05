@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= user.name %> | Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #f3f4f6, #e0e7ff);
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .profile-wrapper {
+      max-width: 900px;
+      margin: 60px auto;
+    }
+
+    .profile-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      /* border-radius: 20px; */
+      box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+      padding: 40px;
+      transition: all 0.3s ease;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .profile-header h2 {
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .btn {
+      border-radius: 10px !important;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .shortlinks-section {
+      margin-top: 50px;
+    }
+
+    .shortlink-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+      transition: 0.2s ease;
+    }
+
+    .shortlink-card:hover {
+      background: #eef2ff;
+      border-color: #c7d2fe;
+    }
+
+    .shortlink-card a {
+      font-weight: 600;
+      color: #4338ca;
+      text-decoration: none;
+    }
+
+    .status-badge {
+      font-size: 0.9rem;
+      border-radius: 8px;
+      padding: 6px 10px;
+    }
+
+    .empty-state {
+      background: #eef2ff;
+      border: 1px dashed #c7d2fe;
+      border-radius: 14px;
+      padding: 30px;
+      text-align: center;
+      color: #4f46e5;
+      margin-top: 20px;
+    }
+
+    .email-status {
+      margin-top: 25px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container profile-wrapper">
+    
+    <%- include('../navbar') %>
+    <div class="profile-card">
+      <div class="profile-header mb-3">
+        <h2><%= user.name %></h2>
+        <% if (user.isEmailVerified) { %>
+          <span class="badge bg-success status-badge">Verified</span>
+        <% } else { %>
+          <span class="badge bg-danger status-badge">Not Verified</span>
+        <% } %>
+      </div>
+
+      <p><strong>Email:</strong> <%= user.email %></p>
+      <p><strong>Joined:</strong> <%= new Date(user.createdAt).toLocaleDateString() %></p>
+
+      <div class="d-flex flex-wrap gap-2 mt-3">
+        <a href="/edit-profile" class="btn btn-outline-primary btn-sm">Edit Profile</a>
+
+        <% if (user.hashPassword) { %>
+          <a href="/change-password" class="btn btn-outline-secondary btn-sm">Change Password</a>
+        <% } else { %>
+          <a href="/set-password" class="btn btn-outline-success btn-sm">Set Password</a>
+        <% } %>
+
+        <% if (!user.isEmailVerified) { %>
+          <a href="/verifyEmail" class="btn btn-outline-primary btn-sm">Verify Email</a>
+        <% } %>
+      </div>
+
+      <div class="shortlinks-section">
+        <h4 class="mt-5 mb-3 fw-semibold">Your Short Links</h4>
+
+        <% if (user.shortlinks && user.shortlinks.length) { %>
+          <% user.shortlinks.forEach(function(link) { %>
+            <div class="shortlink-card">
+              <div><strong>Slug:</strong> <%= link.slug %></div>
+              <div><strong>URL:</strong> <a href="<%= link.url %>" target="_blank"><%= link.url %></a></div>
+              <div><small class="text-muted">Created: <%= new Date(link.createdAt).toLocaleDateString() %></small></div>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <div class="empty-state">
+            <h6>No short links found</h6>
+            <p class="mb-0">Start creating your first short link today!</p>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

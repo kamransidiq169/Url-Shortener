@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register </title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .form-box {
+      background-color: #fff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 420px;
+      transition: transform 0.3s ease;
+    }
+
+    .form-box:hover {
+      transform: translateY(-2px);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 32px;
+      color: #222;
+      font-weight: 600;
+      font-size: 26px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #444;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    .error {
+      color: #d9534f;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .links {
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .link-text {
+      color: #007bff;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .link-text:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <main class="form-box" role="main" aria-label="Register form">
+    <h2>Create Your Account</h2>
+    <form action="/register" method="POST" novalidate>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required placeholder="Your full name" />
+
+      <label for="email">Email address</label>
+      <input type="email" id="email" name="email" required placeholder="you@example.com" />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required placeholder="Create a password" />
+
+      <% if (errors && errors.length > 0) { %>
+        <% errors.forEach((error) => { %>
+          <p class="error"><%= error %></p>
+        <% }) %>
+      <% } %>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <div class="links">
+      <p style="margin-top: 20px; font-size: 14px; color: #555;">
+        Already have an account?
+        <a href="/login" class="link-text">Log In</a>
+      </p>
+    </div>
+  </main>
+</body>
+</html>

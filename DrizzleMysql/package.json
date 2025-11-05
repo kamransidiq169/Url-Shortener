@@ -1,0 +1,25 @@
+{
+  "name": "drizzlemysql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+   "dev":"node --env-file=.env --watch app.js",
+   "start":"node --env-file=.env app.js",
+   "db:generate":"drizzle-kit generate",
+   "db:migrate":"drizzle-kit migrate",
+   "db:studio":"drizzle-kit studio"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "drizzle-orm": "^0.44.5",
+    "mysql2": "^3.15.1"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.5",
+    "tsx": "^4.20.6"
+  }
+}

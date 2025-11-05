@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URL Shortener | Express URL</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(circle at 20% 20%, #eef2ff, #e0e7ff, #f5f3ff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      color: #1e293b;
+      padding: 30px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 40px 32px;
+      margin-top: 60px;
+      box-shadow: 0 10px 35px rgba(99, 102, 241, 0.25);
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .container::before {
+      content: "";
+      position: absolute;
+      top: -30%;
+      left: -30%;
+      width: 160%;
+      height: 160%;
+      background: conic-gradient(from 180deg at 50% 50%, #818cf8, #a78bfa, #c084fc, #818cf8);
+      filter: blur(70px);
+      opacity: 0.15;
+      animation: rotate 12s linear infinite;
+      z-index: 0;
+    }
+
+    .container > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 24px;
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    input {
+      border: none;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      outline: none;
+      transition: all 0.3s ease;
+      color: #1e293b;
+      font-weight: 500;
+    }
+
+    input::placeholder {
+      color: rgba(71, 85, 105, 0.6);
+    }
+
+    input:focus {
+      background: rgba(255, 255, 255, 0.6);
+      border-color: #818cf8;
+      box-shadow: 0 0 10px rgba(129, 140, 248, 0.3);
+    }
+
+    button {
+      background: linear-gradient(90deg, #6366f1, #8b5cf6);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #4f46e5, #7c3aed);
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 32px 24px;
+      }
+      h1 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <%- include('navbar') %>
+
+    <h1>URL Shortener</h1>
+    <form action="/" method="post">
+      <div>
+        <label for="url">Enter URL</label>
+        <input type="text" name="url" id="url" placeholder="Enter the full URL (e.g. https://example.com)" autocomplete="off" value="<%= url %>">
+      </div>
+
+      <div>
+        <label for="shortcode">Enter Shortcode</label>
+        <input type="text" name="shortcode" id="shortcode" placeholder="Enter custom shortcode" required autocomplete="off" value="<%= shortcode %>">
+      </div>
+
+      <button type="submit">Shorten URL</button>
+    </form>
+  </div>
+</body>
+</html>

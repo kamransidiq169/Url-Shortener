@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | ShifaLink</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      background-color: #fff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .links {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.link-text {
+  display: block;
+  margin-bottom: 15px;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.link-text:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.google-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 15px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #444;
+  text-decoration: none;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.google-btn img {
+  width: 35px;
+  height: 35px;
+}
+
+.google-btn:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h1>Sign In</h1>
+    <form action="/login" method="POST">
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required />
+
+      <% if(errors && errors.length > 0) { %>
+        <% errors.forEach((error) => { %>
+          <p class="error"><%= error %></p>
+        <% }) %>
+      <% } %>
+
+      <button type="submit">Log In</button>
+    </form>
+
+    <div class="links">
+       <p style="margin-bottom: 15px; font-size: 14px; color: #555;">
+    Don’t have an account?
+    <a href="/register" class="link-text" style="display: inline;">Register</a>
+  </p>
+
+  <a href="/forget-password" class="link-text">Forgot Password?</a>
+
+  <a href="/google" class="google-btn">
+    <img src="https://www.svgrepo.com/show/303183/google-2015-logo.svg" alt="Google logo" />
+    <span>Continue with Google</span>
+  </a>
+</div>
+  </div>
+</body>
+</html>
