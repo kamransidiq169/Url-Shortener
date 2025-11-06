@@ -8,12 +8,17 @@ import session from 'express-session'
 import flash from 'connect-flash'
 import requestIp from 'request-ip'
 import path from 'path'
+import { fileURLToPath } from 'url';
 const App = express();
 
 App.use(express.json()); // Required to parse JSON body
 App.use(express.static('public'));
 App.use(express.urlencoded({ extended: true }));
 App.set("view engine","ejs")
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 App.set('views', path.join(__dirname, 'views'));
 
 App.use(cookieParser())
