@@ -1,6 +1,6 @@
 
 import express from 'express';
-import router from './routes/shortener.routes.js';
+import {router} from './routes/shortener.routes.js';
 import routeAuth from './routes/auth.routes.js';
 import cookieParser from 'cookie-parser'
 import { verifyAuthentication } from './middleware/verifyAuthentication.js';
