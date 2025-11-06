@@ -13,6 +13,8 @@ App.use(express.json()); // Required to parse JSON body
 App.use(express.static('public'));
 App.use(express.urlencoded({ extended: true }));
 App.set("view engine","ejs")
+App.set('views', path.join(__dirname, 'views'));
+
 App.use(cookieParser())
 App.use(session({ secret: "mysecret", resave: true, saveUninitialized: false }))
 App.use(flash())
@@ -24,7 +26,7 @@ App.use((req,res,next)=>{
 })
 App.use(routeAuth);
 App.use( router);
-let PORT=3000
+let PORT=process.env.PORT || 3000
 App.listen(PORT, () => {
   console.log(`Server is listening at port ${PORT}`);
 });
