@@ -421,7 +421,6 @@ export const getGoogleLoginCallbackPage=async(req,res)=>{
   req.flash("errors","couldn't login with google because of invalid attempt. Please try again")
     return res.redirect("/login")
   }
- console.log('token google', tokens);
  
 const claims = decodeIdToken(tokens.idToken())
 

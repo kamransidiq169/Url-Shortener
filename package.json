@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --env-file=.env --watch app.js",
+    "dev": "node --env-file=.env --watch server.js",
     "start": "node ExpressUrl/server.js"
-
   },
   "keywords": [],
   "author": "",
