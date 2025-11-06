@@ -26,7 +26,11 @@ export const PostRegister = async (req, res) => {
     res.redirect("/register")
   }
 
-  const { name, email, password } = data
+  if (!data) {
+  return res.status(400).json({ error: "Missing registration data" });
+}
+const { name, email, password } = data;
+
 
   const [userEmail] = await getEmail({ email })
 
