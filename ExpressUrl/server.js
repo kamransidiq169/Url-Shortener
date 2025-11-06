@@ -7,6 +7,7 @@ import { verifyAuthentication } from './middleware/verifyAuthentication.js';
 import session from 'express-session'
 import flash from 'connect-flash'
 import requestIp from 'request-ip'
+import path from 'path'
 const App = express();
 
 App.use(express.json()); // Required to parse JSON body
