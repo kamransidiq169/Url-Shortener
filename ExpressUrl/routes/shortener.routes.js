@@ -33,13 +33,10 @@ const router=Router()
 
 
 
-router.get("/",getShortenerPage)
+router.get("/", getShortenerPage);
+router.post("/", postControllerData);
 
-router.post("/",postControllerData)
-
-router.get("/:shortCode",redirectPage)
-
-router.route("/edit/:id").get(getShortnerEditPage)
-
-router.route("/delete/:id").post(deleteShortLink)
-export default router
+router.route("/edit/:id").get(getShortnerEditPage);
+router.route("/delete/:id").post(deleteShortLink);
+router.get("/favicon.ico", (req, res) => res.status(204).end());
+router.get("/:shortCode", redirectPage); // Keep this last

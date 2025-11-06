@@ -82,20 +82,31 @@ export const postControllerData= async (req, res) => {
 // using gpt
 export const redirectPage = async (req, res) => {
   try {
-    const { shortCode } = req.params
-    const link = await getlinkbyShortCode(shortCode)
+    const { shortCode } = req.params;
 
-    if (!link) {
-      // ✅ Instead of redirecting, send a 404 response
-      return res.status(404).send("404: Short link not found")
+    // Ignore requests like favicon.ico or invalid shortcodes
+    if (!shortCode || shortCode === 'favicon.ico') {
+      return res.status(204).end(); // No Content
     }
 
-    return res.redirect(link.url)
+    const link = await getlinkbyShortCode(shortCode);
+
+    if (!link || !link.url) {
+      return res.status(404).render("404", {
+        message: "Short link not found",
+        shortcode: shortCode
+      });
+    }
+
+    return res.redirect(link.url);
   } catch (error) {
-    console.error(error)
-    return res.status(500).send("Internal server error")
+    console.error("Redirect error:", error);
+    return res.status(500).render("error", {
+      message: "Internal server error",
+      error: error.message
+    });
   }
-}
+};
 
 export const getShortnerEditPage=async(req,res)=>{
     const {data:id,error}= z.coerce.number().int().safeParse(req.params.id)
