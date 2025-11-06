@@ -1,7 +1,7 @@
 
 import { Router } from 'express';
 import { getShortenerPage,postControllerData,redirectPage,getShortnerEditPage,deleteShortLink } from '../controller/postShortener.js';
-const router=Router()
+export const router=Router()
 
 //? const student = [{  !for ejs only
 //   name: "Kamran Sidiq",
