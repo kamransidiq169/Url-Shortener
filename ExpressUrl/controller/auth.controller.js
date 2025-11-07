@@ -20,32 +20,36 @@ export const getLoginPage = (req, res) => {
 export const PostRegister = async (req, res) => {
   // const {name,email,password}=req.body
   const { data, error } = userRegistrationSchema.safeParse(req.body)
+if (error) {
+  req.flash("errors", "invalid give perfect details");
+  return res.redirect("/register"); // ✅ return added
+}
 
-  if (error) {
-    req.flash("errors", "invalid give perfect details")
-    res.redirect("/register")
-  }
 
-  if (!data) {
+
+if (!data) {
   return res.status(400).json({ error: "Missing registration data" });
 }
+
 const { name, email, password } = data;
 
 
-  const [userEmail] = await getEmail({ email })
+ const result = await getEmail({ email });
+const userEmail = result?.[0] || null;
 
   const hashPassword = await hashedPassword(password)
 
-  if (userEmail) {
-    req.flash("errors", "User already exists")
-    return res.redirect("/register")
-  }
+if (userEmail) {
+  req.flash("errors", "User already exists");
+  return res.redirect("/register"); // ✅ return added
+}
+
 
   const userData = await createValues({ name, email, password: hashPassword })
   console.log(userData);
- await authenticateUser({ req, res, user, name, email });
+ await authenticateUser({ req, res, user:userData, name, email });
 
-  res.redirect("/login")
+ return res.redirect("/login")
 
 }
 
@@ -60,7 +64,7 @@ export const PostLogin = async (req, res) => {
 
   if (error) {
     req.flash("errors", 'invalid email or password')
-    res.redirect("/login")
+   return res.redirect("/login")
   }
 
   const { email, password } = data
