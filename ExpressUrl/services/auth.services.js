@@ -7,7 +7,13 @@ import argon from 'argon2'
 import crypto from "crypto";
 import { lt } from "drizzle-orm";
 export const getEmail = async ({ email }) => {
-  return await db.select().from(users).where(eq(users.email, email))
+  const result = await db
+    .select()
+    .from(users)
+    .where(eq(users.email, email))
+    .all(); // executes the query and returns an array
+
+  return result; // return first match or null
 }
 
 export const createValues = async ({ name, email, password }) => {
