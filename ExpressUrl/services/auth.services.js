@@ -11,10 +11,10 @@ export const getEmail = async ({ email }) => {
     .select()
     .from(users)
     .where(eq(users.email, email))
-    .all(); // executes the query and returns an array
+    .execute(); // ✅ correct method
 
-  return result; // return first match or null
-}
+  return result[0] || null; // safe fallback
+};
 
 export const createValues = async ({ name, email, password }) => {
   try {
