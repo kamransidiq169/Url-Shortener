@@ -13,7 +13,7 @@ export const getEmail = async ({ email }) => {
     .where(eq(users.email, email))
     .execute(); // ✅ correct method
 
-  return result[0] || null; // safe fallback
+  return result; // safe fallback
 };
 
 export const createValues = async ({ name, email, password }) => {
