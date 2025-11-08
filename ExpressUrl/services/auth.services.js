@@ -38,18 +38,30 @@ export const comparePassword = async (password, hash) => {
 
 
 
-export const createSession = async (userId, { ip, userAgent }) => {
+//export const createSession = async (userId, { ip, userAgent }) => {
   // const session = await db.insert(sessionsData).values({ userId, ip, userAgent }).$returningId()
   // return session
   const result = await db
-  .insert(sessionsData)
-  .values({ userId, ip, userAgent })
-  .$returningId(); // ✅ returns array of inserted rows
+//   .insert(sessionsData)
+//   .values({ userId, ip, userAgent })
+//   .$returningId(); // ✅ returns array of inserted rows
 
-return result[0]; // ✅ first inserted session
-}
+// return result[0]; // ✅ first inserted session
+// }
 
+export const createSession = async (userId, { ip, userAgent }) => {
+  const result = await db
+    .insert(sessionsData)
+    .values({
+      userId,           // ✅ foreign key
+      valid: true,      // ✅ must be explicitly set
+      ip,
+      userAgent
+    })
+    .$returningId();     // ✅ returns array of inserted rows
 
+  return result[0];      // ✅ first inserted session ID
+};
 export const createAccessToken = ({ id, name, email, sessionId }) => {
   return jwt.sign({ id, name, email, sessionId }, process.env.SECRET_KEY, {
     expiresIn: "15m"
