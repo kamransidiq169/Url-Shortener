@@ -7,19 +7,8 @@ import argon from 'argon2'
 import crypto from "crypto";
 import { lt } from "drizzle-orm";
 export const getEmail = async ({ email }) => {
-  try {
-    const result = await db
-      .select()
-      .from(users)
-      .where(eq(users.email, email))
-      .execute();
-
-    return result[0] || null;
-  } catch (error) {
-    console.error("Drizzle query failed:", error);
-    return null;
-  }
-};
+  return await db.select().from(users).where(eq(users.email, email))
+}
 
 export const createValues = async ({ name, email, password }) => {
   try {
@@ -50,8 +39,14 @@ export const comparePassword = async (password, hash) => {
 
 
 export const createSession = async (userId, { ip, userAgent }) => {
-  const session = await db.insert(sessionsData).values({ userId, ip, userAgent }).$returningId()
-  return session
+  // const session = await db.insert(sessionsData).values({ userId, ip, userAgent }).$returningId()
+  // return session
+  const result = await db
+  .insert(sessionsData)
+  .values({ userId, ip, userAgent })
+  .$returningId(); // ✅ returns array of inserted rows
+
+return result[0]; // ✅ first inserted session
 }
 
 

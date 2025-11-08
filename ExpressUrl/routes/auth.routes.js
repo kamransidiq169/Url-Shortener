@@ -4,7 +4,7 @@ const routeAuth=Router()
 
 // routeAuth.get("/register",authController.getRegistrationPage)
 // route.get("/login",authController.getLoginPage)
-routeAuth.get("/", authController.getLoginPage);
+
 routeAuth.route("/register").get(authController.getRegistrationPage).post(authController.PostRegister)
 routeAuth.route("/login").get(authController.getLoginPage).post(authController.PostLogin)
 routeAuth.route("/me").get(authController.getme)
