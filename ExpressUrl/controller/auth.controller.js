@@ -89,9 +89,9 @@ export const PostLogin = async (req, res) => {
   // })
 
   // res.cookie("Access_Token", token)
+const userId = userEmail.id || userEmail.user_id;
 
-
-  const [session] = await createSession(userEmail.id, {
+  const [session] = await createSession(userId, {
     ip: req.clientIp,
     userAgent: req.headers["user-agent"]
   })
