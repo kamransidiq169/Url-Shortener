@@ -41,7 +41,7 @@ export const comparePassword = async (password, hash) => {
 //export const createSession = async (userId, { ip, userAgent }) => {
   // const session = await db.insert(sessionsData).values({ userId, ip, userAgent }).$returningId()
   // return session
-  const result = await db
+  // const result = await db
 //   .insert(sessionsData)
 //   .values({ userId, ip, userAgent })
 //   .$returningId(); // ✅ returns array of inserted rows
