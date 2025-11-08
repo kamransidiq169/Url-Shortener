@@ -33,7 +33,7 @@ const { name, email, password } = data;
 
 
   const [userEmail] = await getEmail({ email })
-console.log("userEmail:", userEmail);
+
   const hashPassword = await hashedPassword(password)
 
   if (userEmail) {

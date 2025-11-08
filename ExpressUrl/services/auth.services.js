@@ -62,7 +62,7 @@ export const createSession = async (userId, { ip, userAgent }) => {
     })
     .$returningId();
 
-  return result[0];
+  return result;
 };
 
 export const createAccessToken = ({ id, name, email, sessionId }) => {
