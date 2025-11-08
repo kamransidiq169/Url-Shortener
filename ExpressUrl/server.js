@@ -16,8 +16,8 @@ App.use(express.static('public'));
 App.use(express.urlencoded({ extended: true }));
 App.set("view engine","ejs")
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 App.set('views', path.join(__dirname, 'views'));
 
