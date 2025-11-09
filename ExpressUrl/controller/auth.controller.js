@@ -65,7 +65,8 @@ export const PostLogin = async (req, res) => {
 
   const { email, password } = data
   const [userEmail] = await getEmail({ email })
-
+  console.log('fetched data',userEmail);
+  
   if (!userEmail) {
     req.flash("errors", "Invalid email and password")
     return res.redirect("/login")
@@ -89,9 +90,8 @@ export const PostLogin = async (req, res) => {
   // })
 
   // res.cookie("Access_Token", token)
-const userId = userEmail.id || userEmail.user_id;
 
-  const [session] = await createSession(userId, {
+  const [session] = await createSession(userEmail.id, {
     ip: req.clientIp,
     userAgent: req.headers["user-agent"]
   })
