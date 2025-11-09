@@ -173,20 +173,28 @@ export const clearUserSession = async (sessionId) => {
 export const authenticateUser = async ({ req, res, user }) => {
   console.log("Authenticating user:", user);
   // we need to create a sessions
-  const session = await createSession(user.id, {
-    ip: req.clientIp,
-    userAgent: req.headers["user-agent"],
-  });
+const sessionId = await createSession(user.id, {
+  ip: req.clientIp,
+  userAgent: req.headers["user-agent"],
+});
 
-  const accessToken = createAccessToken({
-    id: user.id,
-    name: user.name || name,
-    email: user.email || email,
-    isEmailValid: false,
-    sessionId: session.id,
-  });
+  // const accessToken = createAccessToken({
+  //   id: user.id,
+  //   name: user.name || name,
+  //   email: user.email || email,
+  //   isEmailValid: false,
+  //   sessionId: session.id,
+  // });
+const accessToken = createAccessToken({
+  id: user.id,
+  name: user.name,
+  email: user.email,
+  isEmailValid: false,
+  sessionId: sessionId,
+});
 
-  const refreshToken = createRefreshToken(session.id);
+const refreshToken = createRefreshToken(sessionId);
+
 
 const baseConfig = {
   httpOnly: true,
