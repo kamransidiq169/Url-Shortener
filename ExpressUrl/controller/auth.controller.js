@@ -41,9 +41,20 @@ const { name, email, password } = data;
     return res.redirect("/register")
   }
 
-  const userData = await createValues({ name, email, password: hashPassword })
-  console.log(userData);
- await authenticateUser({ req, res, user:userData, name, email });
+  // const userData = await createValues({ name, email, password: hashPassword })
+const insertedId = await createValues({ name, email, password: hashPassword });
+
+const [newUser] = await db
+  .select({
+    id: users.id,
+    name: users.name,
+    email: users.email
+  })
+  .from(users)
+  .where(eq(users.id, insertedId));
+
+
+ await authenticateUser({ req, res, user:newUser, name, email });
 
   res.redirect("/login")
 

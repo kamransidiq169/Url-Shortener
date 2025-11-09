@@ -19,10 +19,24 @@ export const getEmail = async ({ email }) => {
     .from(users)
     .where(eq(users.email, email));
 };
+// export const createValues = async ({ name, email, password }) => {
+//   try {
+//     const [insertedId] = await db.insert(users).values({ name, email, password });
+//     return insertedId;
+//   } catch (err) {
+//     console.error("Insert failed:", err);
+//     throw err;
+//   }
+// };
+
 export const createValues = async ({ name, email, password }) => {
   try {
-    const [insertedId] = await db.insert(users).values({ name, email, password });
-    return insertedId;
+    const [user] = await db
+      .insert(users)
+      .values({ name, email, password })
+      .$returning();
+
+    return user; // full object: { id, name, email, password }
   } catch (err) {
     console.error("Insert failed:", err);
     throw err;
