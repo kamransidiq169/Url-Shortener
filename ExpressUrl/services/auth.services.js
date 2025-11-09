@@ -33,6 +33,7 @@ export const createValues = async ({ name, email, password }) => {
   try {
     const result = await db.insert(users).values({ name, email, password });
     const insertedId = result.insertId; // ✅ works in MySQL
+    console.log("Insert result:", result);
     return insertedId;
   } catch (err) {
     console.error("Insert failed:", err);
@@ -169,6 +170,7 @@ export const clearUserSession = async (sessionId) => {
 // getAllShortLinks
 
 export const authenticateUser = async ({ req, res, user }) => {
+  console.log("Authenticating user:", user);
   // we need to create a sessions
   const session = await createSession(user.id, {
     ip: req.clientIp,
