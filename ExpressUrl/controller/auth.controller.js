@@ -11,6 +11,7 @@ import {decodeIdToken, generateCodeVerifier, generateState} from 'arctic'
 import { google } from "../lib/oauth/google.js"
 import { db } from "../config/db.js"
 import { users } from "../drizzle/schema.js"
+import { eq } from "drizzle-orm"
 export const getRegistrationPage = (req, res) => {
   return res.render("auth/register", { errors: req.flash("errors") })
 }
