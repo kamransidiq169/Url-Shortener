@@ -44,6 +44,8 @@ const { name, email, password } = data;
   }
 
   // const userData = await createValues({ name, email, password: hashPassword })
+  const insertedId = await createValues({ name, email, password: hashPassword });
+
 const result = await db
   .select({
     id: users.id,
