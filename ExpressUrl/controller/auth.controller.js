@@ -42,7 +42,7 @@ const { name, email, password } = data;
   }
 
   // const userData = await createValues({ name, email, password: hashPassword })
-const insertedId = await createValues({ name, email, password: hashPassword });
+const [insertedId] = await createValues({ name, email, password: hashPassword });
 
 const [newUser] = await db
   .select({
@@ -52,7 +52,6 @@ const [newUser] = await db
   })
   .from(users)
   .where(eq(users.id, insertedId));
-
 
  await authenticateUser({ req, res, user:newUser, name, email });
 

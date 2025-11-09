@@ -31,12 +31,9 @@ export const getEmail = async ({ email }) => {
 
 export const createValues = async ({ name, email, password }) => {
   try {
-    const [user] = await db
-      .insert(users)
-      .values({ name, email, password })
-      .$returning();
-
-    return user; // full object: { id, name, email, password }
+    const result = await db.insert(users).values({ name, email, password });
+    const insertedId = result.insertId; // ✅ works in MySQL
+    return insertedId;
   } catch (err) {
     console.error("Insert failed:", err);
     throw err;
