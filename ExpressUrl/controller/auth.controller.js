@@ -43,8 +43,9 @@ const { name, email, password } = data;
     return res.redirect("/register")
   }
 
-  // const userData = await createValues({ name, email, password: hashPassword })
-  const insertedId = await createValues({ name, email, password: hashPassword });
+const insertedId = await createValues({ name, email, password: hashPassword });
+
+console.log("Inserted ID:", insertedId); // ✅ should be a number
 
 const result = await db
   .select({
