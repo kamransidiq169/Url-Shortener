@@ -6,10 +6,19 @@ import jwt from 'jsonwebtoken'
 import argon from 'argon2'
 import crypto from "crypto";
 import { lt } from "drizzle-orm";
+// export const getEmail = async ({ email }) => {
+//   return await db.select().from(users).where(eq(users.email, email))
+// }
 export const getEmail = async ({ email }) => {
-  return await db.select().from(users).where(eq(users.email, email))
-}
-
+  return await db
+    .select({
+      id: usersData.id,
+      email: usersData.email,
+      password: usersData.password
+    })
+    .from(usersData)
+    .where(eq(usersData.email, email));
+};
 export const createValues = async ({ name, email, password }) => {
   try {
     const [insertedId] = await db.insert(users).values({ name, email, password });
