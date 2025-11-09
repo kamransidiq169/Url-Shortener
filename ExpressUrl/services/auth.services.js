@@ -87,15 +87,16 @@ export const comparePassword = async (password, hash) => {
 export const createSession = async (userId, { ip, userAgent }) => {
   if (!userId) throw new Error("Missing userId for session creation");
 
-  const [sessionId] = await db
+  const result = await db
     .insert(sessionsData)
     .values({
       userId,
       valid: true,
       ip,
       userAgent
-    })
-    .$returningId();
+    });
+
+  const sessionId = result.insertId; // ✅ works in MySQL
 
   return sessionId;
 };
