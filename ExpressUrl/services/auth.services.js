@@ -16,8 +16,8 @@ export const getEmail = async ({ email }) => {
       email: users.email,
       password: users.password
     })
-    .from(usersData)
-    .where(eq(usersData.email, email));
+    .from(users)
+    .where(eq(users.email, email));
 };
 export const createValues = async ({ name, email, password }) => {
   try {
