@@ -168,7 +168,7 @@ export const clearUserSession = async (sessionId) => {
 
 // getAllShortLinks
 
-export const authenticateUser = async ({ req, res, user, name, email }) => {
+export const authenticateUser = async ({ req, res, user }) => {
   // we need to create a sessions
   const session = await createSession(user.id, {
     ip: req.clientIp,

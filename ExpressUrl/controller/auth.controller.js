@@ -44,9 +44,7 @@ const { name, email, password } = data;
   }
 
   // const userData = await createValues({ name, email, password: hashPassword })
-const insertedId = await createValues({ name, email, password: hashPassword });
-
-const [newUser] = await db
+const result = await db
   .select({
     id: users.id,
     name: users.name,
@@ -55,7 +53,15 @@ const [newUser] = await db
   .from(users)
   .where(eq(users.id, insertedId));
 
- await authenticateUser({ req, res, user:newUser, name, email });
+const newUser = result[0];
+
+if (!newUser || !newUser.id) {
+  console.error("User not found after insert:", insertedId);
+  req.flash("errors", "Registration failed. Please try again.");
+  return res.redirect("/register");
+}
+
+await authenticateUser({ req, res, user: newUser });
 
   res.redirect("/login")
 
