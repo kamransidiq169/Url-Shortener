@@ -45,14 +45,8 @@ const { name, email, password } = data;
 
 const insertedId = await createValues({ name, email, password: hashPassword });
 
-console.log("Inserted ID:", insertedId); // ✅ should be a number
-
 const result = await db
-  .select({
-    id: users.id,
-    name: users.name,
-    email: users.email
-  })
+  .select({ id: users.id, name: users.name, email: users.email })
   .from(users)
   .where(eq(users.id, insertedId));
 

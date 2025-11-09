@@ -31,9 +31,10 @@ export const getEmail = async ({ email }) => {
 
 export const createValues = async ({ name, email, password }) => {
   try {
-    const result = await db.insert(users).values({ name, email, password });
-    const insertedId = result.insertId; // ✅ works in MySQL
+    const [result] = await db.insert(users).values({ name, email, password });
+    const insertedId = result.insertId;
     console.log("Insert result:", result);
+    console.log("Inserted ID:", insertedId);
     return insertedId;
   } catch (err) {
     console.error("Insert failed:", err);
