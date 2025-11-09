@@ -12,9 +12,9 @@ import { lt } from "drizzle-orm";
 export const getEmail = async ({ email }) => {
   return await db
     .select({
-      id: usersData.id,
-      email: usersData.email,
-      password: usersData.password
+      id: users.id,
+      email: users.email,
+      password: users.password
     })
     .from(usersData)
     .where(eq(usersData.email, email));
