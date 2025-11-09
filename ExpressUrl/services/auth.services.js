@@ -58,10 +58,25 @@ export const comparePassword = async (password, hash) => {
 // return result[0]; // ✅ first inserted session
 // }
 
+// export const createSession = async (userId, { ip, userAgent }) => {
+//   if (!userId) throw new Error("Missing userId for session creation");
+
+//   const result = await db
+//     .insert(sessionsData)
+//     .values({
+//       userId,
+//       valid: true,
+//       ip,
+//       userAgent
+//     })
+//     .$returningId();
+
+//   return result;
+// };
 export const createSession = async (userId, { ip, userAgent }) => {
   if (!userId) throw new Error("Missing userId for session creation");
 
-  const result = await db
+  const [sessionId] = await db
     .insert(sessionsData)
     .values({
       userId,
@@ -71,9 +86,8 @@ export const createSession = async (userId, { ip, userAgent }) => {
     })
     .$returningId();
 
-  return result;
+  return sessionId;
 };
-
 export const createAccessToken = ({ id, name, email, sessionId }) => {
   return jwt.sign({ id, name, email, sessionId }, process.env.SECRET_KEY, {
     expiresIn: "15m"
