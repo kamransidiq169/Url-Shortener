@@ -65,7 +65,7 @@ export const PostLogin = async (req, res) => {
 
   const { email, password } = data
   const [userEmail] = await getEmail({ email })
-  console.log('fetched data',userEmail);
+
   
   if (!userEmail) {
     req.flash("errors", "Invalid email and password")
