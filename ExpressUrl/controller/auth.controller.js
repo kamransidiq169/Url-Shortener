@@ -106,25 +106,11 @@ export const PostLogin = async (req, res) => {
 
   // res.cookie("Access_Token", token)
 
-  // const session = await createSession(userEmail.id, {
-  //   ip: req.clientIp,
-  //   userAgent: req.headers["user-agent"]
-  // })
-  let session;
-try {
-  session = await createSession(userEmail.id, {
+  const session = await createSession(userEmail.id, {
     ip: req.clientIp,
     userAgent: req.headers["user-agent"]
-  });
-} catch (err) {
-  console.error("❌ Error creating session:", err);
-  return res.status(500).json({ success: false, message: "Session error" });
-}
+  })
  
-  if (!session || !session.id) {
-  console.log("❌ Session creation failed:", session);
-  return res.status(500).json({ success: false, message: "Failed to create session" });
-}
 
   const accessToken = createAccessToken({
     id: userEmail.id,
