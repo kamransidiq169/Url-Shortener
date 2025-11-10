@@ -164,13 +164,14 @@ export const getProfilePage = async (req, res) => {
 }
 
 export const logout = async (req, res) => {
+  const sessionId = req.user.sessionId?.id || req.user.sessionId; // <-- ensure it's a value
+  await clearUserSession(sessionId);
 
-  await clearUserSession(req.user.sessionId)
+  res.clearCookie("Access_Token");
+  res.clearCookie("Refresh_Token");
+  res.redirect("/login");
+};
 
-  res.clearCookie("Access_Token")
-  res.clearCookie("Refresh_Token")
-  res.redirect("/login")
-}
 
 export const verifyEmail = async (req, res) => {
   if (!req.user) return res.redirect("/login")

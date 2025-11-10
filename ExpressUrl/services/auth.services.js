@@ -170,8 +170,8 @@ export const refreshTokens = async (refreshToken) => {
 }
 
 export const clearUserSession = async (sessionId) => {
-  return await db.delete(sessionsData).where(eq(sessionsData.id, sessionId))
-}
+  return await db.delete(sessionsData).where(eq(sessionsData.id, sessionId));
+};
 
 
 // getAllShortLinks
