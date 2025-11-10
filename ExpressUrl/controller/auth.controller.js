@@ -60,7 +60,7 @@ if (!newUser || !newUser.id) {
 
 await authenticateUser({ req, res, user: newUser });
 
-  res.redirect("/login")
+return res.redirect("/")
 
 }
 
@@ -132,7 +132,7 @@ export const PostLogin = async (req, res) => {
   res.cookie("Access_Token", accessToken, baseConfig)
   res.cookie("Refresh_Token", refreshToken, baseConfig)
 
-  res.redirect("/")
+ return res.redirect("/")
 }
 
 export const getme = (req, res) => {
