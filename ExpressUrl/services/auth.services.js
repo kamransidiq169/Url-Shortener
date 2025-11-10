@@ -169,9 +169,12 @@ export const refreshTokens = async (refreshToken) => {
   }
 }
 
+// services/auth.services.js
 export const clearUserSession = async (sessionId) => {
+  console.log("Clearing session ID in DB:", sessionId);
   return await db.delete(sessionsData).where(eq(sessionsData.id, sessionId));
 };
+
 
 
 // getAllShortLinks

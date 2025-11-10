@@ -163,14 +163,31 @@ export const getProfilePage = async (req, res) => {
 
 }
 
+// controller/auth.controller.js
 export const logout = async (req, res) => {
-  const sessionId = req.user.sessionId?.id || req.user.sessionId; // <-- ensure it's a value
-  await clearUserSession(sessionId);
+  try {
+    // Make sure we extract the actual ID value
+    const rawSessionId = req.user?.sessionId;
+    const sessionId = typeof rawSessionId === "object" ? rawSessionId.id : rawSessionId;
 
-  res.clearCookie("Access_Token");
-  res.clearCookie("Refresh_Token");
-  res.redirect("/login");
+    console.log("Logging out session:", sessionId);
+
+    if (!sessionId) {
+      console.error("No session ID found in req.user");
+      return res.redirect("/login");
+    }
+
+    await clearUserSession(sessionId);
+
+    res.clearCookie("Access_Token");
+    res.clearCookie("Refresh_Token");
+    res.redirect("/login");
+  } catch (err) {
+    console.error("Logout error:", err);
+    res.status(500).send("Logout failed");
+  }
 };
+
 
 
 export const verifyEmail = async (req, res) => {
