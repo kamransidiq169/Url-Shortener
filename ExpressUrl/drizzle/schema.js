@@ -54,7 +54,7 @@ export const shortLinks = mysqlTable("ShortLinks", {
   shortcode: varchar("shortcode", { length: 100 }).notNull().unique(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
-  userId: int("users_id").notNull().references(() => users.id)
+  userId: int("user_id").notNull().references(() => users.id)
 });
 
 // A user can have many shortlinks

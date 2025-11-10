@@ -36,7 +36,7 @@ CREATE TABLE `ShortLinks` (
 	`shortcode` varchar(100) NOT NULL,
 	`created_at` timestamp NOT NULL DEFAULT (now()),
 	`updated_at` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
-	`users_id` int NOT NULL,
+	`user_id` int NOT NULL,
 	CONSTRAINT `ShortLinks_id` PRIMARY KEY(`id`),
 	CONSTRAINT `ShortLinks_shortcode_unique` UNIQUE(`shortcode`)
 );
@@ -65,5 +65,5 @@ CREATE TABLE `is_email_valid` (
 ALTER TABLE `oauth_accounts` ADD CONSTRAINT `oauth_accounts_user_id_RegisterUsers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `RegisterUsers`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `password_reset_tokens` ADD CONSTRAINT `password_reset_tokens_user_id_RegisterUsers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `RegisterUsers`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `sessions` ADD CONSTRAINT `sessions_user_id_RegisterUsers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `RegisterUsers`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE `ShortLinks` ADD CONSTRAINT `ShortLinks_users_id_RegisterUsers_id_fk` FOREIGN KEY (`users_id`) REFERENCES `RegisterUsers`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `ShortLinks` ADD CONSTRAINT `ShortLinks_user_id_RegisterUsers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `RegisterUsers`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `is_email_valid` ADD CONSTRAINT `is_email_valid_user_id_RegisterUsers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `RegisterUsers`(`id`) ON DELETE cascade ON UPDATE no action;

@@ -1,5 +1,4 @@
 // import { drizzle } from "drizzle-orm/mysql2";
-// export const db = drizzle(process.env.DATABASE_URL);
 // ExpressUrl/config/db.js
 // import { drizzle } from "drizzle-orm/mysql2";
 // import mysql from "mysql2/promise";

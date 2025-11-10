@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "2f1b3718-6eed-4e07-8e8a-cb5b578c8080",
+  "id": "7859af5c-eb5c-4502-9b66-94a2a10040f0",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "oauth_accounts": {
@@ -286,8 +286,8 @@
           "onUpdate": true,
           "default": "(now())"
         },
-        "users_id": {
-          "name": "users_id",
+        "user_id": {
+          "name": "user_id",
           "type": "int",
           "primaryKey": false,
           "notNull": true,
@@ -296,12 +296,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "ShortLinks_users_id_RegisterUsers_id_fk": {
-          "name": "ShortLinks_users_id_RegisterUsers_id_fk",
+        "ShortLinks_user_id_RegisterUsers_id_fk": {
+          "name": "ShortLinks_user_id_RegisterUsers_id_fk",
           "tableFrom": "ShortLinks",
           "tableTo": "RegisterUsers",
           "columnsFrom": [
-            "users_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
