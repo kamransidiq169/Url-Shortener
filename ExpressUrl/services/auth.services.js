@@ -98,9 +98,15 @@ export const createSession = async (userId, { ip, userAgent }) => {
       userAgent
     });
 
-  const sessionId = result.insertId; // ✅ works in MySQL
+  const sessionId = result.insertId;
 
-  return sessionId;
+  return {
+    id: sessionId,
+    userId,
+    valid: true,
+    ip,
+    userAgent
+  };
 };
 export const createAccessToken = ({ id, name, email, sessionId }) => {
   return jwt.sign({ id, name, email, sessionId }, process.env.SECRET_KEY, {
