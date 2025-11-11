@@ -4,14 +4,23 @@ import { text } from 'drizzle-orm/gel-core';
 import { mysqlTable, serial, varchar, timestamp, int, boolean, bigint, mysqlEnum } from 'drizzle-orm/mysql-core';
 
 
-export const users = mysqlTable('registerusers', {
-  id: serial('id').primaryKey().autoincrement(),
-  name: varchar('name', { length: 255 }).notNull(),
-  email: varchar('email', { length: 255 }).notNull().unique(),
-  password: varchar('password', { length: 255 }),
-  isEmailVerified: boolean('is_email_verified').default(false).notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull()
+// export const users = mysqlTable('registerusers', {
+//   id: serial('id').primaryKey().autoincrement(),
+//   name: varchar('name', { length: 255 }).notNull(),
+//   email: varchar('email', { length: 255 }).notNull().unique(),
+//   password: varchar('password', { length: 255 }),
+//   isEmailVerified: boolean('is_email_verified').default(false).notNull(),
+//   createdAt: timestamp('created_at').defaultNow().notNull(),
+//   updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull()
+// });
+export const users = mysqlTable("registerusers", {
+  id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  password: varchar("password", { length: 255 }),
+  isEmailVerified: boolean("is_email_verified").default(false).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull()
 });
 
 export const oauthAccountsTable = mysqlTable("oauth_accounts",{

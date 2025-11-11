@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "e4518870-3245-465a-91ab-8cf42cdc63ec",
+  "id": "d85d10e6-ae13-41be-a474-142d7d8d2169",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "oauth_accounts": {
@@ -333,7 +333,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": true
