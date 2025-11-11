@@ -39,12 +39,15 @@ export const getEmail = async ({ email }) => {
 
 export const createValues = async ({ name, email, password }) => {
   try {
-    const [result] = await db.insert(users).values({ name, email, password });
-    const insertedId = result[0]?.id;
+    const result = await db.insert(users).values({ name, email, password });
+
+    // Drizzle returns an array with ResultSetHeader as the first element
+    const insertId = result[0]?.insertId;
 
     console.log("Insert result:", result);
-    console.log("Inserted ID:", insertedId);
-    return insertedId;
+    console.log("Inserted ID:", insertId);
+
+    return insertId;
   } catch (err) {
     console.error("Insert failed:", err);
     throw err;
