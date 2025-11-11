@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "9acc1adc-1715-4999-943a-b132fcfe16e8",
+  "id": "e4518870-3245-465a-91ab-8cf42cdc63ec",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "oauth_accounts": {
@@ -54,10 +54,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "oauth_accounts_user_id_RegisterUsers_id_fk": {
-          "name": "oauth_accounts_user_id_RegisterUsers_id_fk",
+        "oauth_accounts_user_id_registerusers_id_fk": {
+          "name": "oauth_accounts_user_id_registerusers_id_fk",
           "tableFrom": "oauth_accounts",
-          "tableTo": "RegisterUsers",
+          "tableTo": "registerusers",
           "columnsFrom": [
             "user_id"
           ],
@@ -129,10 +129,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "password_reset_tokens_user_id_RegisterUsers_id_fk": {
-          "name": "password_reset_tokens_user_id_RegisterUsers_id_fk",
+        "password_reset_tokens_user_id_registerusers_id_fk": {
+          "name": "password_reset_tokens_user_id_registerusers_id_fk",
           "tableFrom": "password_reset_tokens",
-          "tableTo": "RegisterUsers",
+          "tableTo": "registerusers",
           "columnsFrom": [
             "user_id"
           ],
@@ -220,10 +220,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "sessions_user_id_RegisterUsers_id_fk": {
-          "name": "sessions_user_id_RegisterUsers_id_fk",
+        "sessions_user_id_registerusers_id_fk": {
+          "name": "sessions_user_id_registerusers_id_fk",
           "tableFrom": "sessions",
-          "tableTo": "RegisterUsers",
+          "tableTo": "registerusers",
           "columnsFrom": [
             "user_id"
           ],
@@ -296,10 +296,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "ShortLinks_user_id_RegisterUsers_id_fk": {
-          "name": "ShortLinks_user_id_RegisterUsers_id_fk",
+        "ShortLinks_user_id_registerusers_id_fk": {
+          "name": "ShortLinks_user_id_registerusers_id_fk",
           "tableFrom": "ShortLinks",
-          "tableTo": "RegisterUsers",
+          "tableTo": "registerusers",
           "columnsFrom": [
             "user_id"
           ],
@@ -328,8 +328,8 @@
       },
       "checkConstraint": {}
     },
-    "RegisterUsers": {
-      "name": "RegisterUsers",
+    "registerusers": {
+      "name": "registerusers",
       "columns": {
         "id": {
           "name": "id",
@@ -388,16 +388,16 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {
-        "RegisterUsers_id": {
-          "name": "RegisterUsers_id",
+        "registerusers_id": {
+          "name": "registerusers_id",
           "columns": [
             "id"
           ]
         }
       },
       "uniqueConstraints": {
-        "RegisterUsers_email_unique": {
-          "name": "RegisterUsers_email_unique",
+        "registerusers_email_unique": {
+          "name": "registerusers_email_unique",
           "columns": [
             "email"
           ]
@@ -448,10 +448,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "is_email_valid_user_id_RegisterUsers_id_fk": {
-          "name": "is_email_valid_user_id_RegisterUsers_id_fk",
+        "is_email_valid_user_id_registerusers_id_fk": {
+          "name": "is_email_valid_user_id_registerusers_id_fk",
           "tableFrom": "is_email_valid",
-          "tableTo": "RegisterUsers",
+          "tableTo": "registerusers",
           "columnsFrom": [
             "user_id"
           ],

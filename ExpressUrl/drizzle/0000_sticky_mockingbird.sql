@@ -41,7 +41,7 @@ CREATE TABLE `ShortLinks` (
 	CONSTRAINT `ShortLinks_shortcode_unique` UNIQUE(`shortcode`)
 );
 --> statement-breakpoint
-CREATE TABLE `RegisterUsers` (
+CREATE TABLE `registerusers` (
 	`id` serial AUTO_INCREMENT NOT NULL,
 	`name` varchar(255) NOT NULL,
 	`email` varchar(255) NOT NULL,
@@ -49,8 +49,8 @@ CREATE TABLE `RegisterUsers` (
 	`is_email_verified` boolean NOT NULL DEFAULT false,
 	`created_at` timestamp NOT NULL DEFAULT (now()),
 	`updated_at` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
-	CONSTRAINT `RegisterUsers_id` PRIMARY KEY(`id`),
-	CONSTRAINT `RegisterUsers_email_unique` UNIQUE(`email`)
+	CONSTRAINT `registerusers_id` PRIMARY KEY(`id`),
+	CONSTRAINT `registerusers_email_unique` UNIQUE(`email`)
 );
 --> statement-breakpoint
 CREATE TABLE `is_email_valid` (
@@ -62,8 +62,8 @@ CREATE TABLE `is_email_valid` (
 	CONSTRAINT `is_email_valid_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
-ALTER TABLE `oauth_accounts` ADD CONSTRAINT `oauth_accounts_user_id_RegisterUsers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `RegisterUsers`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE `password_reset_tokens` ADD CONSTRAINT `password_reset_tokens_user_id_RegisterUsers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `RegisterUsers`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE `sessions` ADD CONSTRAINT `sessions_user_id_RegisterUsers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `RegisterUsers`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE `ShortLinks` ADD CONSTRAINT `ShortLinks_user_id_RegisterUsers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `RegisterUsers`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE `is_email_valid` ADD CONSTRAINT `is_email_valid_user_id_RegisterUsers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `RegisterUsers`(`id`) ON DELETE cascade ON UPDATE no action;
+ALTER TABLE `oauth_accounts` ADD CONSTRAINT `oauth_accounts_user_id_registerusers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `registerusers`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `password_reset_tokens` ADD CONSTRAINT `password_reset_tokens_user_id_registerusers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `registerusers`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `sessions` ADD CONSTRAINT `sessions_user_id_registerusers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `registerusers`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `ShortLinks` ADD CONSTRAINT `ShortLinks_user_id_registerusers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `registerusers`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `is_email_valid` ADD CONSTRAINT `is_email_valid_user_id_registerusers_id_fk` FOREIGN KEY (`user_id`) REFERENCES `registerusers`(`id`) ON DELETE cascade ON UPDATE no action;

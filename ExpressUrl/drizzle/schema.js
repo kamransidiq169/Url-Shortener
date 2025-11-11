@@ -4,7 +4,7 @@ import { text } from 'drizzle-orm/gel-core';
 import { mysqlTable, serial, varchar, timestamp, int, boolean, bigint, mysqlEnum } from 'drizzle-orm/mysql-core';
 
 
-export const users = mysqlTable('RegisterUsers', {
+export const users = mysqlTable('registerusers', {
   id: serial('id').primaryKey().autoincrement(),
   name: varchar('name', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }).notNull().unique(),
