@@ -424,7 +424,7 @@ export const getGoogleLoginPage=async(req,res)=>{
  const url = google.createAuthorizationURL(state, codeVerifier, [
   "openid", "profile", "email"
 ], {
-  redirect_uri: "http://localhost:3000/google/callback"
+  redirect_uri: "https://url-shortener-3xkp.onrender.com/google/callback"
 });
   const baseConfig = {
     httpOnly: true,
