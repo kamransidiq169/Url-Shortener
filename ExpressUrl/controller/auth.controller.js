@@ -20,49 +20,46 @@ export const getLoginPage = (req, res) => {
 }
 
 export const PostRegister = async (req, res) => {
-  // const {name,email,password}=req.body
-  const { data, error } = userRegistrationSchema.safeParse(req.body)
+  const { data, error } = userRegistrationSchema.safeParse(req.body);
 
   if (error) {
-    req.flash("errors", "invalid give perfect details")
-   return  res.redirect("/register")
+    req.flash("errors", "Invalid details, please check again");
+    return res.redirect("/register");
   }
 
-  if (!data) {
-  return res.status(400).json({ error: "Missing registration data" });
-}
-const { name, email, password } = data;
-
-
-  const [userEmail] = await getEmail({ email })
-
-  const hashPassword = await hashedPassword(password)
+  const { name, email, password } = data;
+  const [userEmail] = await getEmail({ email });
 
   if (userEmail) {
-    req.flash("errors", "User already exists")
-    return res.redirect("/register")
+    req.flash("errors", "User already exists");
+    return res.redirect("/register");
   }
 
-const insertedId = await createValues({ name, email, password: hashPassword });
+  const hashPassword = await hashedPassword(password);
+  const insertedId = await createValues({ name, email, password: hashPassword });
 
-const result = await db
-  .select({ id: users.id, name: users.name, email: users.email })
-  .from(users)
-  .where(eq(users.id, insertedId));
+  const result = await db
+    .select({ id: users.id, name: users.name, email: users.email })
+    .from(users)
+    .where(eq(users.id, insertedId));
 
-const newUser = result[0];
+  const newUser = result[0];
 
-if (!newUser || !newUser.id) {
-  console.error("User not found after insert:", insertedId);
-  req.flash("errors", "Registration failed. Please try again.");
-  return res.redirect("/register");
-}
+  if (!newUser || !newUser.id) {
+    console.error("User not found after insert:", insertedId);
+    req.flash("errors", "Registration failed. Please try again.");
+    return res.redirect("/register");
+  }
 
-await authenticateUser({ req, res, user: newUser });
+  // ✅ Fix: define these before using
+  const ip = req.clientIp || req.ip;
+  const userAgent = req.headers["user-agent"];
 
-return res.redirect("/")
+  await authenticateUser({ req, res, user: newUser, ip, userAgent });
 
-}
+  return res.redirect("/");
+};
+
 
 export const PostLogin = async (req, res) => {
   // res.setHeader("Set-Cookie","isLoggedIn=true; path=/;")

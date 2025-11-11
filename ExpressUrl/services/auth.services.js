@@ -192,7 +192,7 @@ export const clearUserSession = async (sessionId) => {
 
 // getAllShortLinks
 
-export const authenticateUser = async ({ req, res, user }) => {
+export const authenticateUser = async ({ req, res, user ,ip,userAgent}) => {
   console.log("Authenticating user:", user);
   // we need to create a sessions
 // const sessionId = await createSession(user.id, {
