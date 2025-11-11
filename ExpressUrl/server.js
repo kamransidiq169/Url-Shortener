@@ -30,9 +30,9 @@ App.use((req,res,next)=>{
   res.locals.user=req.user
   return next()
 })
-// App.get('/', (req, res) => {
-//   res.redirect('/login');
-// });
+App.get('/', (req, res) => {
+  res.redirect('/login');
+});
 App.use(routeAuth);
 App.use( router);
 let PORT=process.env.PORT || 3001
