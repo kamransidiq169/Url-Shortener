@@ -32,7 +32,8 @@ export const getEmail = async ({ email }) => {
 export const createValues = async ({ name, email, password }) => {
   try {
     const [result] = await db.insert(users).values({ name, email, password });
-    const insertedId = result.insertId;
+    const insertedId = result[0]?.id;
+
     console.log("Insert result:", result);
     console.log("Inserted ID:", insertedId);
     return insertedId;
@@ -166,6 +167,7 @@ export const refreshTokens = async (refreshToken) => {
 
   } catch (error) {
     console.error(error.message)
+    return null
   }
 }
 
@@ -182,10 +184,10 @@ export const clearUserSession = async (sessionId) => {
 export const authenticateUser = async ({ req, res, user }) => {
   console.log("Authenticating user:", user);
   // we need to create a sessions
-const sessionId = await createSession(user.id, {
-  ip: req.clientIp,
-  userAgent: req.headers["user-agent"],
-});
+// const sessionId = await createSession(user.id, {
+//   ip: req.clientIp,
+//   userAgent: req.headers["user-agent"],
+// });
 
   // const accessToken = createAccessToken({
   //   id: user.id,
@@ -194,15 +196,23 @@ const sessionId = await createSession(user.id, {
   //   isEmailValid: false,
   //   sessionId: session.id,
   // });
+// const accessToken = createAccessToken({
+//   id: user.id,
+//   name: user.name,
+//   email: user.email,
+//   isEmailValid: false,
+//   sessionId: sessionId,
+// });
+const session = await createSession(user.id, { ip, userAgent });
 const accessToken = createAccessToken({
   id: user.id,
   name: user.name,
   email: user.email,
   isEmailValid: false,
-  sessionId: sessionId,
+  sessionId: session.id,
 });
-
-const refreshToken = createRefreshToken(sessionId);
+const refreshToken = createRefreshToken(session.id);
+// const refreshToken = createRefreshToken(sessionId);
 
 
 const baseConfig = {

@@ -25,7 +25,7 @@ export const PostRegister = async (req, res) => {
 
   if (error) {
     req.flash("errors", "invalid give perfect details")
-    res.redirect("/register")
+   return  res.redirect("/register")
   }
 
   if (!data) {
@@ -75,7 +75,7 @@ export const PostLogin = async (req, res) => {
 
   if (error) {
     req.flash("errors", 'invalid email or password')
-    res.redirect("/login")
+    return res.redirect("/login")
   }
 
   const { email, password } = data
