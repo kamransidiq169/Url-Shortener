@@ -15,7 +15,8 @@ export const getShortenerPage= async (req, res) => {
     
     //let isLoggedIn=req.cookies.isLoggedIn  // ye wali line seedia isloggedin ki value dikha ta jo true hai 
      if(!req.user?.id){
-      return res.status(401).send("user not logged in")
+      // return res.status(401).send("user not logged in")
+      return res.redirect("/login")
      }
     const links = await loadLinks(req.user.id);
      res.render('index',{links, host:req.host,user:req.user})
