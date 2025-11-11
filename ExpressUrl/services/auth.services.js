@@ -10,15 +10,23 @@ import { lt } from "drizzle-orm";
 //   return await db.select().from(users).where(eq(users.email, email))
 // }
 export const getEmail = async ({ email }) => {
-  return await db
-    .select({
-      id: users.id,
-      email: users.email,
-      password: users.password
-    })
-    .from(users)
-    .where(eq(users.email, email));
+  try {
+    const result = await db
+      .select({
+        id: users.id,
+        email: users.email,
+        password: users.password
+      })
+      .from(users)
+      .where(eq(users.email, email));
+    return result;
+  } catch (err) {
+    console.error("🔥 Real MySQL error =>", err.message);
+    console.error("🔥 SQL error details =>", err?.cause || err?.stack);
+    throw err;
+  }
 };
+
 // export const createValues = async ({ name, email, password }) => {
 //   try {
 //     const [insertedId] = await db.insert(users).values({ name, email, password });
